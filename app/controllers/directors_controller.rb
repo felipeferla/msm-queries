@@ -13,7 +13,7 @@ class DirectorsController < ApplicationController
   end
 
   def show_youngest_director
-    sorted_relations = Director.all.order({ :dob => :desc })
+    sorted_relations = Director.where.not({ :dob => nil }).order({ :dob => :desc })
     @youngest_director = sorted_relations.at(0).name
     @youngest_director_id = sorted_relations.at(0).id
     @youngest_director_dob = sorted_relations.at(0).dob.strftime("%B %e, %Y")
@@ -24,7 +24,7 @@ class DirectorsController < ApplicationController
   end
 
   def show_oldest_director
-    sorted_relations = Director.all.order({ :dob => :desc })
+    sorted_relations = Director.where.not({ :dob => nil }).order({ :dob => :desc })
     @oldest_director = sorted_relations.at(-1).name
     @oldest_director_id = sorted_relations.at(-1).id
     @oldest_director_dob = sorted_relations.at(-1).dob.strftime("%B %e, %Y")
